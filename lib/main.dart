@@ -1,5 +1,3 @@
-//import 'dart:html';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:managerexpenses/addExpense.dart';
@@ -15,11 +13,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Expense Manager by Kolganov NA',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'The best Expense Manager'),
     );
   }
 }
@@ -32,7 +30,6 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int chooseYear;
     return Directionality(
         textDirection: TextDirection.ltr,
         child: ScopedModel(
