@@ -10,7 +10,6 @@ class ExpensesModel extends Model {
   int _idGenerator = 0;
   double _sum;
   int _chooseYear;
-  List<double> _expensePerMonth = List.filled(12, 0);
 
   String get getSumString => "Total expense: " + _sum.toString();
   int get getCountRecords => _items.length;
@@ -22,8 +21,9 @@ class ExpensesModel extends Model {
 
   List<double> expensePerMonth (int y) {
     List<double> _expensePerMonth = List.filled(12, 0);
+    int _year = _chooseYear == null && getCountYears > 1 ? getChooseYear : _years.keys.first;
     _items.forEach((i) {
-      if (i.date.year == _chooseYear) {
+      if (i.date.year == _year) {
         _expensePerMonth[i.date.month-1] += i.price;
       }
     });
@@ -86,9 +86,6 @@ class ExpensesModel extends Model {
     int _year = _items[index].date.year;
     _sum -= _items[index].price;
     _years[_year] -= 1;
-    if (_year == _chooseYear) {
-      _expensePerMonth[_items[index].date.month-1] -= _items[index].price;
-    }
     _items.removeAt(index);
     notifyListeners();
     _db.removeAt(_id).then((_) {
@@ -105,22 +102,18 @@ class ExpensesModel extends Model {
     _items.add(Expense(_idGenerator, date, name, price));
 
     int year = date.year;
-    int month = date.month;
     if (_years.containsKey(year)) {
       _years[year] += 1;
     } else {
       _years[year] = 1;
     }
-    if (year == _chooseYear) {
-      _expensePerMonth[month-1] += price;
-    }
+
     _sum += price;
 
     notifyListeners();
   }
 
   void editExpense(int index, String name, double price, DateTime date) {
-
     Expense _currentRecord = _items[index];
     _currentRecord.date = date;
     _currentRecord.name = name;
