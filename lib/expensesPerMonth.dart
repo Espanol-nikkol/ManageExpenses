@@ -25,7 +25,6 @@ class _ExpensesPerMonthState extends State<ExpensesPerMonth> {
     List<String> _listMonth = ["January", "Febrary", "March", "April", "May",
       "June", "Jule", "August", "September", "October", "November", "December"];
     List<double> _listExpensePerMonth = _model.expensePerMonth(_chooseYear);
-    print(_listExpensePerMonth);
     return Row(
         children: [
           Column(
